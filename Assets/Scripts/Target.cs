@@ -1,16 +1,25 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Target : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Material target1ColorNew;
+    private Renderer rend;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        rend = GetComponent<Renderer>();
+    }
+    public virtual void OnCollisionEnter(Collision collision) //POLYMORPHISM
+    {
+        if (collision.gameObject.CompareTag("Projectile"))
+        {
+            
+            {
+                rend.material = target1ColorNew;
+                Destroy(collision.gameObject);
+            }
+            
+        }
     }
 }

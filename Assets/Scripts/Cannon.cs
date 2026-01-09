@@ -3,11 +3,15 @@ using UnityEngine.InputSystem;
 
 public class Cannon : MonoBehaviour
 {
-    [SerializeField] private Rigidbody cannonRb;
-    
+    [SerializeField] private Rigidbody cannonRb; //ENCAPSULATION
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject cannon;
+    [SerializeField] private Transform spawner;
+
     void Update()
     {
         RotateCannon(); //ABSTRACTION
+        Fire();
     }
 
     private void RotateCannon()
@@ -22,5 +26,13 @@ public class Cannon : MonoBehaviour
             rotate = 1f;
 
         cannonRb.AddTorque(Vector3.up * rotate * rotationSpeed * Time.deltaTime);
+    }
+
+    private void Fire()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Instantiate(projectilePrefab, spawner.transform.position, spawner.transform.rotation);
+        }
     }
 }
